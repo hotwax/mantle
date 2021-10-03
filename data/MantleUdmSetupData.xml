@@ -21,7 +21,6 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.basic.Enumeration enumId="ValidateAddressGatewayConfigId" description="Address Validate Gateway Config ID" enumTypeId="UserPreferenceKey"/>
     <moqui.basic.Enumeration enumId="DefaultShipmentGatewayConfigId" description="Shipment Default Gateway Config ID" enumTypeId="UserPreferenceKey"/>
 
-    <moqui.basic.Enumeration enumId="GlAccountCodeMask" description="GL Account Code Mask (like ###-###)" enumTypeId="UserPreferenceKey"/>
     <moqui.basic.Enumeration enumId="mantle.content.root" description="Mantle Content Root Loc" enumTypeId="UserPreferenceKey"/>
     <moqui.basic.Enumeration enumId="mantle.content.large.root" description="Mantle Content Large Root Loc - binary, etc files" enumTypeId="UserPreferenceKey"/>
 
@@ -39,8 +38,6 @@ along with this software (see the LICENSE.md file). If not, see
 
     <moqui.basic.LocalizedMessage locale="default" original="FinancialAccountNameTemplate"
             localized="${finAccountCode ?: finAccountId}: ${finAccountName} (${ec.l10n.format(availableBalance ?: 0.0, '#,##0.00')})"/>
-    <moqui.basic.LocalizedMessage locale="default" original="GlAccountNameTemplate"
-            localized="${accountCodeFormatter != null ? accountCodeFormatter.valueToString(accountCode) : accountCode}: ${accountName}"/>
     <moqui.basic.LocalizedMessage locale="default" original="PayrollInvoicePayDescription"
                                   localized="${emplPosition.description} ${ec.l10n.format(timePeriod.fromDate, 'dd MMM yyyy')} - ${ec.l10n.format(timePeriod.thruDate, 'dd MMM yyyy')}"/>
 

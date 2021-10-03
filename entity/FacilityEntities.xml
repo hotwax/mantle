@@ -135,37 +135,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.facility.Facility" short-alias="facility"/>
         <relationship type="one" related="mantle.shipment.ShipmentBoxType" short-alias="boxType"/>
     </entity>
-    <entity entity-name="FacilityCertification" package="mantle.facility" cache="never">
-        <field name="facilityCertificationId" type="id" is-pk="true"/>
-        <field name="facilityId" type="id"/>
-        <field name="certificationTypeEnumId" type="id"/>
-        <field name="fromDate" type="date"/>
-        <field name="thruDate" type="date"/>
-        <field name="contactPartyId" type="id"/>
-        <field name="auditorPartyId" type="id"/>
-        <field name="auditorOrgPartyId" type="id"/>
-        <field name="auditStartDate" type="date-time"/>
-        <field name="auditEndDate" type="date-time"/>
-        <field name="auditScore" type="text-short"/>
-        <field name="certRegistrationId" type="text-short"/>
-        <field name="otherCertId" type="text-short"/>
-        <field name="documentLocation" type="text-medium"/>
-
-        <relationship type="one" related="mantle.facility.Facility" short-alias="facility"/>
-        <relationship type="one" title="FacilityCertificationType" related="moqui.basic.Enumeration">
-            <key-map field-name="certificationTypeEnumId"/></relationship>
-        <relationship type="one" title="Contact" related="mantle.party.Party">
-            <key-map field-name="contactPartyId"/></relationship>
-        <relationship type="one" title="Auditor" related="mantle.party.Party">
-            <key-map field-name="auditorPartyId"/></relationship>
-        <relationship type="one" title="AuditorOrg" related="mantle.party.Party">
-            <key-map field-name="auditorOrgPartyId"/></relationship>
-
-        <seed-data>
-            <moqui.basic.EnumerationType description="Facility Certification Type" enumTypeId="FacilityCertificationType"/>
-        </seed-data>
-    </entity>
-
     <entity entity-name="FacilityContactMech" package="mantle.facility" cache="never">
         <field name="facilityId" type="id" is-pk="true"/>
         <field name="contactMechId" type="id" is-pk="true"/>
@@ -197,14 +166,6 @@ along with this software (see the LICENSE.md file). If not, see
             <moqui.basic.Enumeration description="Image URL"  enumId="FcntImageUrl" enumTypeId="FacilityContentType"/>
         </seed-data>
     </entity>
-    <entity entity-name="FacilityGlAppl" package="mantle.facility" cache="never">
-        <description>Used to specify relevant GL Accounts for a Facility (expense, revenue, etc); not related to posting conf</description>
-        <field name="facilityId" type="id" is-pk="true"/>
-        <field name="glAccountId" type="id" is-pk="true"/>
-        <relationship type="one" related="mantle.facility.Facility" short-alias="facility"/>
-        <relationship type="one" related="mantle.ledger.account.GlAccount" short-alias="glAccount"/>
-    </entity>
-
     <entity entity-name="FacilityGroup" package="mantle.facility" short-alias="facilityGroups">
         <field name="facilityGroupId" type="id" is-pk="true"/>
         <field name="parentGroupId" type="id"/>
