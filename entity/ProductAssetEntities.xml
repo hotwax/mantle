@@ -17,7 +17,6 @@ along with this software (see the LICENSE.md file). If not, see
     <!-- ========================================================= -->
     <!--  - mantle.product.asset -->
     <!--  - mantle.product.issuance -->
-    <!--  - mantle.product.maintenance -->
     <!--  - mantle.product.receipt -->
     <!-- ========================================================= -->
 
@@ -123,8 +122,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="acquireOrderId" related="orderId"/>
             <key-map field-name="acquireOrderItemSeqId" related="orderItemSeqId"/>
         </relationship>
-        <relationship type="one" title="Acquire" related="mantle.work.effort.WorkEffort" short-alias="acquireWorkEffort">
-            <key-map field-name="acquireWorkEffortId"/></relationship>
         <relationship type="one" title="Acquire" related="mantle.shipment.Shipment" short-alias="acquireShipment">
             <key-map field-name="acquireShipmentId"/></relationship>
         <relationship type="one" title="AcquireCost" related="moqui.basic.Uom" short-alias="acquireCostUom">
@@ -137,8 +134,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="many" related="mantle.product.asset.AssetDetail" short-alias="details">
             <key-map field-name="assetId"/></relationship>
         <relationship type="many" related="mantle.product.asset.AssetDepreciation" short-alias="depreciations">
-            <key-map field-name="assetId"/></relationship>
-        <relationship type="many" related="mantle.product.asset.AssetGlAppl" short-alias="glAppls">
             <key-map field-name="assetId"/></relationship>
         <relationship type="many" related="mantle.product.asset.AssetIdentification" short-alias="identifications">
             <key-map field-name="assetId"/></relationship>
@@ -365,8 +360,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.product.Product" short-alias="product"/>
         <relationship type="one" related="mantle.order.OrderItem" short-alias="orderItem"/>
         <relationship type="one" related="mantle.order.return.ReturnItem" short-alias="returnItem"/>
-        <relationship type="one" related="mantle.work.effort.WorkEffort" short-alias="workEffort"/>
-        <relationship type="one" related="mantle.product.maintenance.AssetMaintenance" short-alias="assetMaintenance"/>
         <relationship type="one" related="mantle.product.issuance.AssetIssuance" short-alias="assetIssuance"/>
         <relationship type="one" related="mantle.product.receipt.AssetReceipt" short-alias="assetReceipt"/>
         <relationship type="one" related="mantle.product.asset.PhysicalInventory" short-alias="physicalInventory"/>
@@ -401,8 +394,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="yearsRemaining" type="number-integer"/>
         <field name="acctgTransId" type="id"/>
         <relationship type="one" related="mantle.product.asset.Asset"/>
-        <relationship type="one" related="mantle.party.time.TimePeriod"/>
-        <relationship type="one" related="mantle.ledger.transaction.AcctgTrans"/>
     </entity>
     <entity entity-name="AssetIdentification" package="mantle.product.asset" cache="never">
         <field name="assetId" type="id" is-pk="true"/>
@@ -635,11 +626,7 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.order.return.ReturnItem" short-alias="returnItem">
             <key-map field-name="returnId"/><key-map field-name="returnItemSeqId"/></relationship>
         <relationship type="one" related="mantle.product.Product" short-alias="product"/>
-        <relationship type="one" related="mantle.work.effort.WorkEffort" short-alias="workEffort"/>
         <relationship type="one" related="mantle.facility.Facility" short-alias="facility"/>
-        <relationship type="one" related="mantle.product.maintenance.AssetMaintenance" short-alias="assetMaintenance"/>
-        <relationship type="many" related="mantle.work.effort.WorkEffortProduct" short-alias="workEffortProducts">
-            <key-map field-name="workEffortId"/><key-map field-name="productId"/></relationship>
         <relationship type="one" title="IssuedBy" related="moqui.security.UserAccount" short-alias="issuedByUserAccount">
             <key-map field-name="issuedByUserId"/></relationship>
         <relationship type="one" title="AcctgTransResult" related="moqui.basic.Enumeration" short-alias="acctgTransResult">
@@ -713,9 +700,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.account.invoice.InvoiceItem" short-alias="invoiceItem"/>
         <relationship type="one" related="mantle.order.return.ReturnItem" short-alias="returnItem">
             <key-map field-name="returnId"/><key-map field-name="returnItemSeqId"/></relationship>
-        <relationship type="one" related="mantle.work.effort.WorkEffort" short-alias="workEffort"/>
-        <relationship type="many" related="mantle.work.effort.WorkEffortProduct" short-alias="workEffortProducts">
-            <key-map field-name="workEffortId"/><key-map field-name="productId"/></relationship>
         <relationship type="one" title="ReceivedBy" related="moqui.security.UserAccount" short-alias="receivedByUserAccount">
             <key-map field-name="receivedByUserId"/></relationship>
         <relationship type="one" title="RejectionReason" related="moqui.basic.Enumeration" short-alias="rejectionReason">

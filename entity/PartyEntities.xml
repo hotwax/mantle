@@ -16,10 +16,8 @@ along with this software (see the LICENSE.md file). If not, see
           xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
     <!-- ========================================================= -->
     <!--  - mantle.party -->
-    <!--  - mantle.party.agreement -->
     <!--  - mantle.party.communication -->
     <!--  - mantle.party.contact -->
-    <!--  - mantle.party.time -->
     <!-- ========================================================= -->
 
 
@@ -54,8 +52,6 @@ along with this software (see the LICENSE.md file). If not, see
 
         <relationship type="one-nofk" related="mantle.party.Organization" short-alias="organization" mutable="true"/>
         <relationship type="one-nofk" related="mantle.party.Person" short-alias="person" mutable="true"/>
-        <relationship type="many" related="mantle.party.PartyBadge" short-alias="badges">
-            <key-map field-name="partyId"/></relationship>
         <relationship type="many" related="mantle.party.PartyClassificationAppl" short-alias="classifications">
             <key-map field-name="partyId"/></relationship>
         <relationship type="many" related="mantle.party.PartyContent" short-alias="contents">
@@ -75,9 +71,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="partyId" related="toPartyId"/></relationship>
         <relationship type="many" related="mantle.party.contact.PartyContactMech" short-alias="contactMechs">
             <key-map field-name="partyId"/></relationship>
-
-        <relationship type="many" related="mantle.account.financial.FinancialAccount" short-alias="financialAccounts">
-            <key-map field-name="partyId" related="ownerPartyId"/></relationship>
         <relationship type="many" related="mantle.account.method.PaymentMethod" short-alias="paymentMethods">
             <key-map field-name="partyId" related="ownerPartyId"/></relationship>
 
@@ -819,7 +812,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="note" type="text-long"/>
 
         <field name="reasonEnumId" type="id"/>
-        <field name="contactListId" type="id"/>
         <field name="emailMessageId" type="id"/>
 
         <relationship type="one" related="mantle.party.communication.CommunicationEventType" short-alias="type"/>
@@ -849,7 +841,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="toPartyId" related="partyId"/></relationship>
         <relationship type="one" title="To" related="mantle.party.RoleType" short-alias="toRole">
             <key-map field-name="toRoleTypeId"/></relationship>
-        <relationship type="one" related="ContactList" short-alias="contactList"/>
         <relationship type="one" title="CommunicationEventReason" related="moqui.basic.Enumeration" short-alias="reason">
             <key-map field-name="reasonEnumId"/></relationship>
 
@@ -922,7 +913,7 @@ along with this software (see the LICENSE.md file). If not, see
             <detail relationship="fromContactMech"/><detail relationship="toContactMech"/>
             <detail relationship="fromParty"/><detail relationship="fromRole"/>
             <detail relationship="toParty"/><detail relationship="toRole"/>
-            <detail relationship="contactList"/><detail relationship="reason"/>
+            <detail relationship="reason"/>
 
             <detail relationship="contents"/>
             <detail relationship="parties">
@@ -1064,7 +1055,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="gatewayCimId" type="text-short" enable-audit-log="update"/>
         <field name="trustLevelEnumId" type="id"/>
         <field name="validateMessage" type="text-medium"/>
-        <field name="paymentFraudEvidenceId" type="id"><description>Refer to evidence here if trustLevelEnumId is gray listed or black listed</description></field>
         <field name="replacesContactMechId" type="id"><description>For update by copy-on-write this is the ID of the ContactMech it replaces</description></field>
 
         <relationship type="one" title="ContactMechType" related="moqui.basic.Enumeration" short-alias="type">
@@ -1072,7 +1062,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="moqui.basic.DataSource"/>
         <relationship type="one" title="ContactPaymentTrustLevel" related="moqui.basic.Enumeration" short-alias="trustLevel">
             <key-map field-name="trustLevelEnumId"/></relationship>
-        <relationship type="one" related="mantle.account.payment.PaymentFraudEvidence" short-alias="fraudEvidence" mutable="true"/>
 
         <relationship type="one-nofk" title="Replaces" related="mantle.party.contact.ContactMech" short-alias="replacesContactMech">
             <key-map field-name="replacesContactMechId"/></relationship>

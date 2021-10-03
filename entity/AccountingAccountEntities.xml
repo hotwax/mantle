@@ -33,7 +33,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="billingAccountId" type="id"/>
         <field name="invoiceDate" type="date-time" enable-audit-log="update"/>
         <field name="dueDate" type="date-time" enable-audit-log="update"/>
-        <field name="settlementTermId" type="id"/>
         <field name="paidDate" type="date-time"/>
         <field name="invoiceMessage" type="text-long"/>
         <field name="referenceNumber" type="text-medium" enable-audit-log="update">
@@ -83,16 +82,12 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="toPartyId" related="partyId"/></relationship>
 
         <relationship type="one" title="Invoice" related="moqui.basic.StatusItem" short-alias="status"/>
-        <relationship type="one" related="mantle.account.billing.BillingAccount" short-alias="billingAccount"/>
-        <relationship type="one" related="mantle.account.invoice.SettlementTerm" short-alias="settlementTerm"/>
         <relationship type="one" title="Currency" related="moqui.basic.Uom" short-alias="currencyUom">
             <key-map field-name="currencyUomId"/></relationship>
         <relationship type="one" title="OverrideOrg" related="mantle.party.Party" short-alias="overrideOrgParty">
             <key-map field-name="overrideOrgPartyId"/></relationship>
 
         <relationship type="one" related="mantle.product.store.ProductStore" short-alias="productStore"/>
-        <relationship type="one" related="mantle.humanres.employment.Employment" short-alias="employment"/>
-        <relationship type="one" related="mantle.party.time.TimePeriod" short-alias="timePeriod"/>
         <relationship type="one" title="AcctgTransResult" related="moqui.basic.Enumeration" short-alias="acctgTransResultEnum">
             <key-map field-name="acctgTransResultEnumId"/></relationship>
         <relationship type="one" related="moqui.service.message.SystemMessageRemote" short-alias="systemMessageRemote"/>
@@ -103,8 +98,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="invoiceId"/></relationship>
         <relationship type="many" title="To" related="mantle.account.payment.PaymentApplication" short-alias="toPaymentApplications">
             <key-map field-name="invoiceId" related="toInvoiceId"/></relationship>
-        <relationship type="many" related="mantle.ledger.transaction.AcctgTrans" short-alias="acctgTrans">
-            <key-map field-name="invoiceId"/></relationship>
 
         <index name="INVOICE_EXTERNAL"><index-field name="externalId"/></index>
         <index name="INVOICE_ORIGIN"><index-field name="originId"/></index>
@@ -370,7 +363,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="description" type="text-medium"/>
         <field name="itemDate" type="date-time" enable-audit-log="update"/>
         <field name="isAdjustment" type="text-indicator"/>
-        <field name="salesOpportunityId" type="id"/>
         <field name="taxAuthorityId" type="id"/>
         <field name="payrollAdjustmentId" type="id"/>
         <field name="finAccountId" type="id"/>
@@ -392,16 +384,10 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="parentInvoiceId" related="invoiceId"/>
             <key-map field-name="parentInvoiceItemSeqId" related="invoiceItemSeqId"/>
         </relationship>
-        <relationship type="one" title="Override" related="mantle.ledger.account.GlAccount" short-alias="overrideGlAccount">
-            <key-map field-name="overrideGlAccountId"/></relationship>
 
         <relationship type="one" title="Quantity" related="moqui.basic.Uom" short-alias="quantityUom">
             <key-map field-name="quantityUomId"/></relationship>
-        <relationship type="one" related="SalesOpportunity" short-alias="salesOpportunity"/>
         <relationship type="one" related="mantle.other.tax.TaxAuthority" short-alias="taxAuthority"/>
-        <relationship type="one" related="mantle.humanres.employment.PayrollAdjustment" short-alias="payrollAdjustment"/>
-        <relationship type="one" related="mantle.account.financial.FinancialAccount" short-alias="financialAccount"/>
-        <relationship type="one" related="mantle.account.financial.FinancialAccountTrans" short-alias="financialAccountTrans"/>
 
         <relationship type="many" related="mantle.account.invoice.InvoiceItemDetail" short-alias="details">
             <key-map field-name="invoiceId"/><key-map field-name="invoiceItemSeqId"/></relationship>
@@ -430,7 +416,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.facility.Facility" short-alias="facility"/>
         <relationship type="one" related="mantle.product.asset.Asset" short-alias="asset"/>
         <relationship type="one" related="mantle.party.Party" short-alias="party"/>
-        <relationship type="one" related="mantle.work.effort.WorkEffort" short-alias="workEffort"/>
     </entity>
     <entity entity-name="InvoiceItemAssoc" package="mantle.account.invoice" cache="never">
         <field name="invoiceItemAssocId" type="id" is-pk="true"/>
@@ -474,16 +459,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.party.Party"/>
         <relationship type="one" related="mantle.party.RoleType"/>
     </entity>
-    <entity entity-name="InvoiceTerm" package="mantle.account.invoice" cache="never">
-        <field name="invoiceId" type="id" is-pk="true"/>
-        <field name="invoiceItemSeqId" type="id" is-pk="true"/>
-        <field name="settlementTermId" type="id" is-pk="true"/>
-        <relationship type="one" related="mantle.account.invoice.Invoice">
-            <key-map field-name="invoiceId"/></relationship>
-        <relationship type="one-nofk" related="mantle.account.invoice.InvoiceItem">
-            <key-map field-name="invoiceId"/><key-map field-name="invoiceItemSeqId"/></relationship>
-        <relationship type="one" related="mantle.account.invoice.SettlementTerm"/>
-    </entity>
 
     <!-- ========================================================= -->
     <!-- mantle.account.method -->
@@ -525,9 +500,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="imageUrl" type="text-medium"><description>Usually specific to a type or sub-type of PaymentMethod, for display to users</description></field>
 
         <field name="trustLevelEnumId" type="id"/>
-        <field name="paymentFraudEvidenceId" type="id"><description>Refer to evidence here if trust level is gray listed or black listed</description></field>
-        <field name="glAccountId" type="id"><description>A GL Account associated with this PaymentMethod for reconciliation, etc</description></field>
-        <field name="finAccountId" type="id"><description>Refers to FinancialAccount when paymentMethodTypeEnumId=PmtFinancialAccount</description></field>
         <field name="originalPaymentMethodId" type="id"><description>Because PaymentMethod records are treated as
             immutable (except for certain fields) they are cloned and expired on update and this field will have the
             paymentMethodId of the original record.</description></field>
@@ -553,9 +525,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.account.method.PaymentGatewayConfig" short-alias="gatewayConfig"/>
         <relationship type="one" title="ContactPaymentTrustLevel" related="moqui.basic.Enumeration" short-alias="trustLevel">
             <key-map field-name="trustLevelEnumId"/></relationship>
-        <relationship type="one" related="mantle.account.payment.PaymentFraudEvidence" short-alias="paymentFraudEvidence" mutable="true"/>
-        <relationship type="one" related="mantle.ledger.account.GlAccount" short-alias="glAccount"/>
-        <relationship type="one" related="mantle.account.financial.FinancialAccount" short-alias="financialAccount"/>
 
         <relationship type="one-nofk" related="mantle.account.method.BankAccount" short-alias="bankAccount" mutable="true"/>
         <relationship type="one-nofk" related="mantle.account.method.BitcoinWallet" short-alias="bitcoinWallet" mutable="true"/>
@@ -690,8 +659,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one-nofk" title="PaymentMethodTransType" related="moqui.basic.Enumeration" short-alias="transTypeEnum">
             <key-map field-name="transType"/></relationship>
         <relationship type="one" related="mantle.account.payment.Payment"/>
-        <relationship type="one" related="mantle.ledger.transaction.AcctgTransEntry">
-            <key-map field-name="acctgTransId"/><key-map field-name="acctgTransEntrySeqId"/></relationship>
 
         <seed-data>
             <!-- Payment Method Trans Type from OFX STMTTRN.TRNTYPE (transType) possible values -->
@@ -933,7 +900,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="amountUomId"/></relationship>
         <relationship type="one" related="mantle.account.payment.Payment"/>
         <relationship type="one" related="mantle.account.method.PaymentMethod"/>
-        <relationship type="one" related="mantle.account.financial.FinancialAccount"/>
 
         <index name="PMT_GTWR_REFNUM"><index-field name="referenceNum"/></index>
 
@@ -1045,16 +1011,8 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="forInvoiceId"/></relationship>
         <relationship type="one" title="RefundFor" related="mantle.account.payment.Payment" short-alias="refundForPayment">
             <key-map field-name="refundForPaymentId"/></relationship>
-        <relationship type="one" related="mantle.account.financial.FinancialAccount" short-alias="financialAccount"/>
-        <relationship type="one" related="mantle.account.financial.FinancialAccountAuth" short-alias="financialAccountAuth"/>
-        <relationship type="one" related="mantle.account.financial.FinancialAccountTrans" short-alias="financialAccountTrans"/>
-        <relationship type="one" title="Override" related="mantle.ledger.account.GlAccount" short-alias="overrideGlAccount">
-            <key-map field-name="overrideGlAccountId"/></relationship>
         <relationship type="one" title="OverrideOrg" related="mantle.party.Party" short-alias="overrideOrgParty">
             <key-map field-name="overrideOrgPartyId"/></relationship>
-
-        <relationship type="one" related="mantle.humanres.employment.Employment" short-alias="employment"/>
-        <relationship type="one" related="mantle.party.time.TimePeriod" short-alias="timePeriod"/>
 
         <relationship type="one" title="OriginalCurrency" related="moqui.basic.Uom" short-alias="originalCurrencyUom">
             <key-map field-name="originalCurrencyUomId"/></relationship>
@@ -1221,16 +1179,12 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="invoiceId"/></relationship>
         <relationship type="one-nofk" related="mantle.account.invoice.InvoiceItem" short-alias="invoiceItem">
             <key-map field-name="invoiceId"/><key-map field-name="invoiceItemSeqId"/></relationship>
-        <relationship type="one" related="mantle.account.billing.BillingAccount" short-alias="billingAccount">
-            <key-map field-name="billingAccountId"/></relationship>
         <relationship type="one" title="To" related="mantle.account.payment.Payment" short-alias="toPayment">
             <key-map field-name="toPaymentId"/></relationship>
         <relationship type="one" title="To" related="mantle.account.invoice.Invoice" short-alias="toInvoice">
             <key-map field-name="toInvoiceId"/></relationship>
         <relationship type="one" title="TaxAuth" related="moqui.basic.Geo" short-alias="taxAuthGeo">
             <key-map field-name="taxAuthGeoId"/></relationship>
-        <relationship type="one" title="Override" related="mantle.ledger.account.GlAccount" short-alias="overrideGlAccount">
-            <key-map field-name="overrideGlAccountId"/></relationship>
         <relationship type="one" title="AcctgTransResult" related="moqui.basic.Enumeration" short-alias="acctgTransResultEnum">
             <key-map field-name="acctgTransResultEnumId"/></relationship>
     </entity>

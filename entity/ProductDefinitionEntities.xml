@@ -20,7 +20,6 @@ along with this software (see the LICENSE.md file). If not, see
     <!--  - mantle.product.config -->
     <!--  - mantle.product.cost -->
     <!--  - mantle.product.feature -->
-    <!--  - mantle.product.subscription -->
     <!-- ========================================================= -->
 
     <!-- ========================================================= -->
@@ -94,11 +93,7 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="productId" related="toProductId"/></relationship>
         <relationship type="many" related="mantle.product.ProductContent" short-alias="contents">
             <key-map field-name="productId"/></relationship>
-        <relationship type="many" related="mantle.product.ProductDimension" short-alias="dimensions">
-            <key-map field-name="productId"/></relationship>
         <relationship type="many" related="mantle.product.ProductGeo" short-alias="geos">
-            <key-map field-name="productId"/></relationship>
-        <relationship type="many" related="mantle.product.ProductGlAppl" short-alias="glAppls">
             <key-map field-name="productId"/></relationship>
         <relationship type="many" related="mantle.product.ProductIdentification" short-alias="identifications">
             <key-map field-name="productId"/></relationship>
@@ -111,13 +106,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="productId"/></relationship>
         <relationship type="many" related="mantle.product.feature.ProductFeatureAppl" short-alias="features">
             <key-map field-name="productId"/></relationship>
-        <relationship type="many" related="mantle.product.maintenance.ProductMaintenance" short-alias="maintenances">
-            <key-map field-name="productId"/></relationship>
-        <relationship type="many" related="mantle.product.maintenance.ProductMeter" short-alias="meters">
-            <key-map field-name="productId"/></relationship>
-        <relationship type="many" related="mantle.product.subscription.ProductSubscriptionResource" short-alias="subscriptionResources">
-            <key-map field-name="productId"/></relationship>
-
         <relationship type="many" related="mantle.product.asset.Asset" short-alias="assets">
             <key-map field-name="productId"/></relationship>
 
@@ -206,8 +194,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="mantle.product.Product" short-alias="product"/>
         <relationship type="one" title="To" related="mantle.product.Product" short-alias="toProduct">
             <key-map field-name="toProductId"/></relationship>
-        <relationship type="one" title="Routing" related="mantle.work.effort.WorkEffort" short-alias="routing">
-            <key-map field-name="routingWorkEffortId"/></relationship>
         <seed-data>
             <!-- Product Assoc Type -->
             <moqui.basic.EnumerationType description="Product Association Type" enumTypeId="ProductAssocType"/>
@@ -358,7 +344,6 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" title="ProductFormType" related="moqui.basic.Enumeration" short-alias="productFormTypeEnum">
             <key-map field-name="productFormTypeEnumId" related="enumId"/></relationship>
         <relationship type="one" related="mantle.party.RoleType" short-alias="role"/>
-        <relationship type="one" related="mantle.marketing.segment.MarketSegment" short-alias="marketSegment"/>
         <seed-data>
             <moqui.basic.EnumerationType description="Product Form Type" enumTypeId="ProductFormType"/>
             <moqui.basic.Enumeration description="Sales Required Info" enumId="PfmtSalesRequired" enumTypeId="ProductFormType"/>
@@ -375,7 +360,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="uomId" type="id"/>
         <relationship type="one" related="mantle.product.Product" short-alias="product"/>
         <relationship type="one" related="moqui.basic.UomDimensionType" short-alias="type"/>
-        <relationship type="one" related="mantle.marketing.segment.MarketSegment" short-alias="marketSegment"/>
         <relationship type="one" related="moqui.basic.Uom" short-alias="uom"/>
     </entity>
 
@@ -434,7 +418,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="productIdTypeEnumId"/></relationship>
         <relationship type="one" related="mantle.product.Product" short-alias="product"/>
         <relationship type="one" related="mantle.product.store.ProductStore" short-alias="productStore"/>
-        <relationship type="one" related="mantle.marketing.segment.MarketSegment" short-alias="marketSegment"/>
         <relationship type="one" title="Parent" related="mantle.product.Product" short-alias="parentProduct">
             <key-map field-name="parentProductId" related="productId"/></relationship>
         <index name="PRODUCT_STR_ID_VAL" unique="false"><index-field name="idValue"/></index>
@@ -469,7 +452,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="sequenceNum" type="number-integer"/>
         <relationship type="one" related="mantle.product.ProductParameter" short-alias="productParameter"/>
         <relationship type="one" related="mantle.product.Product" short-alias="product"/>
-        <relationship type="one" related="mantle.marketing.segment.MarketSegment" short-alias="marketSegment"/>
         <relationship type="one" related="mantle.product.store.ProductStore" short-alias="productStore"/>
         <relationship type="one" related="mantle.product.ProductUomDimension" short-alias="productUomDimension"/>
         <relationship type="one" related="mantle.product.ProductOtherIdentification" short-alias="productOtherIdent"/>
@@ -495,7 +477,6 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="parameterValue" type="text-medium"/>
         <field name="uomId" type="id"/>
         <relationship type="one" related="mantle.product.ProductParameterSet" short-alias="productParameterSet"/>
-        <relationship type="one" related="mantle.marketing.segment.MarketSegment" short-alias="marketSegment"/>
         <relationship type="one" related="mantle.product.ProductParameter" short-alias="productParameter"/>
         <relationship type="one" related="mantle.product.ProductParameterOption" short-alias="productParameterOption"/>
         <relationship type="one" related="moqui.basic.Uom" short-alias="uom"/>
