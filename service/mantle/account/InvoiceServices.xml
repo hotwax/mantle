@@ -1660,20 +1660,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="arc.invoiceId" from="null"/><set field="arc.invoiceItemSeqId" from="null"/>
                 <entity-update value-field="arc"/>
             </iterate>
-
-            <!-- clear TimeEntry (by invoiceId, vendorInvoiceId) -->
-            <!--<entity-find entity-name="mantle.work.time.TimeEntry" list="timeEntryList">
-                <econdition field-name="invoiceId"/></entity-find>
-            <iterate list="timeEntryList" entry="timeEntry">
-                <set field="timeEntry.invoiceId" from="null"/><set field="timeEntry.invoiceItemSeqId" from="null"/>
-                <entity-update value-field="timeEntry"/>
-            </iterate>
-            <entity-find entity-name="mantle.work.time.TimeEntry" list="timeEntryList">
-                <econdition field-name="vendorInvoiceId" from="invoiceId"/></entity-find>
-            <iterate list="timeEntryList" entry="timeEntry">
-                <set field="timeEntry.vendorInvoiceId" from="null"/><set field="timeEntry.vendorInvoiceItemSeqId" from="null"/>
-                <entity-update value-field="timeEntry"/>
-            </iterate>-->
         </actions>
     </service>
     <service verb="cancel" noun="InvoiceAndPayments">

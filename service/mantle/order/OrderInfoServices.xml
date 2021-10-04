@@ -63,10 +63,6 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="returnItemList" type="List"><parameter name="returnItem" type="Map">
                 <auto-parameters entity-name="mantle.order.return.ReturnItem"/></parameter></parameter>
 
-            <!--<parameter name="requestItemOrderList" type="List"><parameter name="rio" type="Map">
-                <auto-parameters entity-name="mantle.request.RequestItemOrder"/></parameter></parameter>-->
-<!--            <parameter name="requestIdSet" type="Set"><parameter name="requestId"/></parameter>-->
-
             <parameter name="statusHistoryList" type="List"><parameter name="auditLog" type="Map">
                 <auto-parameters entity-name="moqui.entity.EntityAuditLog"/></parameter></parameter>
             <parameter name="orderNoteList" type="List"><parameter name="orderNote" type="Map">
@@ -309,13 +305,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <econdition field-name="statusId" operator="not-equals" value="ReturnCancelled"/>
                 <order-by field-name="orderItemSeqId"/>
             </entity-find>
-
-            <!-- get RequestItemOrder list and derived data -->
-            <!--<entity-find entity-name="mantle.request.RequestItemOrder" list="requestItemOrderList">
-                <econdition field-name="orderId"/></entity-find>
-            <set field="requestIdSet" from="new TreeSet()"/>
-            <iterate list="requestItemOrderList" entry="requestItemOrder">
-                <script>requestIdSet.add(requestItemOrder.requestId)</script></iterate>-->
 
             <!-- get order status history from EntityAuditLog -->
             <entity-find entity-name="moqui.entity.EntityAuditLog" list="statusHistoryList">

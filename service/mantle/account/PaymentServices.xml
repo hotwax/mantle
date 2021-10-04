@@ -116,13 +116,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <econdition field-name="refundPaymentId" from="paymentId"/><order-by field-name="returnId,returnItemSeqId"/></entity-find>
             <set field="returnIdSet" from="new TreeSet(returnItemList*.returnId)"/>
 
-            <!-- get accounting transactions associated with payment -->
-            <!--<entity-find entity-name="mantle.ledger.transaction.AcctgTrans" list="acctgTransList">
-                <econdition field-name="paymentId"/></entity-find>
-            <set field="acctgTransIdSet" from="new TreeSet()"/>
-            <iterate list="acctgTransList" entry="acctgTrans">
-                <script>acctgTransIdSet.add(acctgTrans.acctgTransId)</script></iterate>-->
-
             <!-- get invoices with reverse from/to parties that this payment might be applied to -->
             <entity-find entity-name="mantle.account.invoice.Invoice" list="unpaidInvoiceList">
                 <econdition field-name="fromPartyId" from="payment.toPartyId"/>
@@ -388,13 +381,6 @@ along with this software (see the LICENSE.md file). If not, see
                     <if condition="forInvoice != null"><set field="invoiceList" from="[forInvoice.getMap()]"/></if>
                 </if>
 
-                <!--<if condition="payment.finAccountTransId">
-                    <entity-find-one entity-name="mantle.account.financial.FinancialAccountTrans" value-field="financialAccountTrans">
-                        <field-map field-name="finAccountTransId" from="payment.finAccountTransId"/></entity-find-one>
-                    <entity-find-one entity-name="mantle.account.financial.FinancialAccount" value-field="financialAccount">
-                        <field-map field-name="finAccountId" from="financialAccountTrans.finAccountId"/></entity-find-one>
-                </if>-->
-
                 <if condition="payment.orderId">
                     <entity-find entity-name="mantle.order.OrderItemBilling" list="orderItemBillingList">
                         <econdition field-name="orderId" from="payment.orderId"/>
@@ -541,19 +527,6 @@ along with this software (see the LICENSE.md file). If not, see
                     <if condition="amount &lt; 0.0"><set field="amount" from="0.0"/></if>
                 </if>
             </if>
-
-            <!--<if condition="!amountUomId">
-                <service-call name="mantle.ledger.LedgerServices.find#PartyAcctgPreference" out-map="context"
-                        in-map="[organizationPartyId:fromPartyId]"/>
-                <if condition="partyAcctgPreference"><then>
-                    <set field="amountUomId" from="partyAcctgPreference.baseCurrencyUomId"/>
-                </then><else>
-                    <service-call name="mantle.ledger.LedgerServices.find#PartyAcctgPreference" out-map="context"
-                            in-map="[organizationPartyId:toPartyId]"/>
-                    <if condition="partyAcctgPreference != null">
-                        <set field="amountUomId" from="partyAcctgPreference.baseCurrencyUomId"/></if>
-                </else></if>
-            </if>-->
             <if condition="!amountUomId"><set field="amountUomId" value="USD"/></if>
         </actions>
     </service>
