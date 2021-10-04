@@ -84,7 +84,7 @@ General Order Placement and eCommerce Usage
                 <if condition="storeBillToList"><set field="billToPartyId" from="storeBillToList[0].partyId"/></if>
             </if>
 
-            <if condition="!currencyUomId">
+            <!--<if condition="!currencyUomId">
                 <if condition="customerPartyId">
                     <service-call name="mantle.ledger.LedgerServices.find#PartyAcctgPreference" out-map="context"
                             in-map="[organizationPartyId:customerPartyId]"/></if>
@@ -92,7 +92,7 @@ General Order Placement and eCommerce Usage
                     <service-call name="mantle.ledger.LedgerServices.find#PartyAcctgPreference" out-map="context"
                             in-map="[organizationPartyId:vendorPartyId]"/></if>
                 <set field="currencyUomId" from="partyAcctgPreference?.baseCurrencyUomId"/>
-            </if>
+            </if>-->
             <!-- MAYBE: get this from configuration somewhere, needed beyond PartyAcctgPreference? -->
             <if condition="!currencyUomId"><set field="currencyUomId" value="USD"/></if>
 
@@ -952,7 +952,7 @@ General Order Placement and eCommerce Usage
             <parameter name="statusId" default-value="PmntPromised"/>
             <parameter name="amount" type="BigDecimal"><description>Defaults to OrderPart.partTotal</description></parameter>
             <parameter name="visitId" default="ec.user.visitId"/>
-            <parameter name="settlementTermId"/>
+<!--            <parameter name="settlementTermId"/>-->
         </in-parameters>
         <out-parameters>
             <parameter name="paymentId"/>
@@ -971,13 +971,13 @@ General Order Placement and eCommerce Usage
             <set field="amountUomId" from="orderHeader.currencyUomId"/>
             <set field="toPartyId" from="orderPart.vendorPartyId"/>
 
-            <if condition="settlementTermId">
+            <!--<if condition="settlementTermId">
                 <entity-find-one entity-name="mantle.account.invoice.SettlementTerm" value-field="settlementTerm" cache="true"/>
                 <if condition="!settlementTerm?.orderPmtServiceRegisterId">
                     <message type="warning">Selected Term has no Auto Payments Service, creating a single Payment</message></if>
-            </if>
+            </if>-->
 
-            <if condition="settlementTerm?.orderPmtServiceRegisterId"><then>
+            <!--<if condition="settlementTerm?.orderPmtServiceRegisterId"><then>
                 <service-call name="update#mantle.order.OrderPart"
                         in-map="[orderId:orderId, orderPartSeqId:orderPartSeqId, settlementTermId:settlementTermId]"/>
 
@@ -991,10 +991,10 @@ General Order Placement and eCommerce Usage
                         ec.logger.log(300, "Error calling auto order payments service for SettlementTerm ${settlementTermId}", t)
                     }
                 ]]></script>
-            </then><else>
+            </then><else>-->
                 <service-call name="mantle.account.PaymentServices.create#Payment" out-map="context"
                         in-map="context + [amount:amount, amountUomId:amountUomId, fromPartyId:fromPartyId, toPartyId:toPartyId]"/>
-            </else></if>
+            <!--</else></if>-->
         </actions>
     </service>
 
@@ -1010,7 +1010,7 @@ General Order Placement and eCommerce Usage
             <parameter name="statusId" default-value="PmntPromised"/>
             <parameter name="amount" type="BigDecimal"><description>Defaults to OrderPart.partTotal</description></parameter>
             <parameter name="visitId" default="ec.user.visitId"/>
-            <parameter name="settlementTermId"/>
+<!--            <parameter name="settlementTermId"/>-->
         </in-parameters>
         <actions>
             <set field="amount" from="amount ?: orderPart.partTotal"/>
@@ -1271,12 +1271,12 @@ General Order Placement and eCommerce Usage
         </in-parameters>
         <out-parameters><parameter name="isFulfilled" type="Boolean"/></out-parameters>
         <actions>
-            <entity-find entity-name="mantle.product.subscription.Subscription" list="orderSubscriptionList">
+            <!--<entity-find entity-name="mantle.product.subscription.Subscription" list="orderSubscriptionList">
                 <econdition field-name="orderId"/></entity-find>
             <entity-find entity-name="mantle.order.OrderItemWorkEffort" list="orderWorkEffortList">
                 <econdition field-name="orderId"/>
                 <econdition field-name="requiredWork" value="Y"/>
-            </entity-find>
+            </entity-find>-->
             <entity-find entity-name="mantle.product.issuance.AssetIssuance" list="orderAssetIssuanceList">
                 <econdition field-name="orderId"/></entity-find>
             <entity-find entity-name="mantle.product.receipt.AssetReceipt" list="orderAssetReceiptList">
@@ -1332,7 +1332,7 @@ General Order Placement and eCommerce Usage
                 <entity-find-one entity-name="mantle.product.Product" value-field="product" cache="true">
                     <field-map field-name="productId" from="orderItem.productId"/></entity-find-one>
 
-                <if condition="product.productTypeEnumId in ['PtDigital', 'PtDigitalAsset']">
+                <!--<if condition="product.productTypeEnumId in ['PtDigital', 'PtDigitalAsset']">
                     <if condition="orderSubscriptionList == null">
                         <entity-find entity-name="mantle.product.subscription.Subscription" list="orderSubscriptionList">
                             <econdition field-name="orderId"/><econdition field-name="orderItemSeqId"/></entity-find>
@@ -1349,7 +1349,7 @@ General Order Placement and eCommerce Usage
                             <set field="isFulfilled" from="false"/>
                         </if>
                     </iterate>
-                </if>
+                </if>-->
                 <if condition="isFulfilled &amp;&amp; product.productTypeEnumId in ['PtAsset', 'PtDigitalAsset', 'PtAssetUse', 'PtPickAssembly']">
                     <if condition="orderAssetIssuanceList == null"><then>
                         <entity-find entity-name="mantle.product.issuance.AssetIssuance" list="currentAssetIssuanceList">
@@ -1376,36 +1376,6 @@ General Order Placement and eCommerce Usage
                     </iterate>
                     <if condition="currentQuantityTotal &lt; orderItem.quantity">
                         <set field="isFulfilled" from="false"/>
-                    </if>
-                </if>
-
-                <!-- check WorkEfforts (OrderItemWorkEffort with requiredWork == 'Y') for all Product types,
-                    if any work efforts not cancelled or completed consider item not fulfilled -->
-                <if condition="isFulfilled">
-                    <!-- NOTE: this could be constrained only to WorkEfforts associated with the OrderItem's Product, but don't to support arbitrary tasks required for OrderItems -->
-                    <if condition="orderWorkEffortList == null"><then>
-                        <entity-find entity-name="mantle.order.OrderItemWorkEffort" list="itemWorkEffortList">
-                            <econdition field-name="orderId"/>
-                            <econdition field-name="orderItemSeqId"/>
-                            <econdition field-name="requiredWork" value="Y"/>
-                        </entity-find>
-                    </then><else>
-                        <filter-map-list list="orderWorkEffortList" to-list="itemWorkEffortList">
-                            <field-map field-name="orderItemSeqId"/></filter-map-list>
-                    </else></if>
-
-                    <if condition="itemWorkEffortList">
-                        <set field="workEffortIdList" from="itemWorkEffortList*.workEffortId"/>
-                        <entity-find entity-name="mantle.work.effort.WorkEffort" list="workEffortList">
-                            <econdition field-name="workEffortId" operator="in" from="workEffortIdList"/>
-                            <select-field field-name="workEffortId,statusId"/>
-                        </entity-find>
-                        <iterate list="workEffortList" entry="workEffort">
-                            <if condition="!(workEffort.statusId in ['WeComplete', 'WeClosed', 'WeCancelled'])">
-                                <set field="isFulfilled" from="false"/>
-                                <break/>
-                            </if>
-                        </iterate>
                     </if>
                 </if>
             </then><else>
@@ -1901,17 +1871,17 @@ General Order Placement and eCommerce Usage
                     <econdition field-name="orderId" from="baseOrderId"/></entity-find>
                 <iterate list="valueList" entry="value"><set field="value.orderId" from="orderId"/><entity-create value-field="value"/></iterate>
             </if>
-            <if condition="copyTerm">
+            <!--<if condition="copyTerm">
                 <entity-find entity-name="mantle.order.OrderPartTerm" list="valueList">
                     <econdition field-name="orderId" from="baseOrderId"/></entity-find>
                 <iterate list="valueList" entry="value"><set field="value.orderId" from="orderId"/><entity-create value-field="value"/></iterate>
-            </if>
-            <if condition="copyItemWorkEffort">
+            </if>-->
+            <!--<if condition="copyItemWorkEffort">
                 <entity-find entity-name="mantle.order.OrderItemWorkEffort" list="valueList">
                     <econdition field-name="orderId" from="baseOrderId"/></entity-find>
                 <iterate list="valueList" entry="value"><set field="value.orderId" from="orderId"/><entity-create value-field="value"/></iterate>
             </if>
-
+-->
             <if condition="copyPayment">
                 <entity-find entity-name="mantle.account.payment.Payment" list="valueList">
                     <econdition field-name="orderId" from="baseOrderId"/></entity-find>
@@ -2362,89 +2332,4 @@ General Order Placement and eCommerce Usage
         </actions>
     </service>
 
-    <!-- ========== Order-Request Services ========== -->
-
-    <service verb="create" noun="PurchaseRequestOrder">
-        <in-parameters>
-            <parameter name="requestId" required="true"/>
-            <parameter name="customerPartyId" required="true">
-                <description>The customer for the PO. Should be an Internal Org.</description></parameter>
-            <parameter name="paymentInstrumentEnumId" default-value="PiCompanyCheck"/>
-            <parameter name="paymentMethodId"/>
-            <parameter name="shipmentMethodEnumId" default-value="ShMthPickUp"/>
-            <parameter name="placeAndApproveOrders" type="Boolean" default="false"/>
-        </in-parameters>
-        <out-parameters>
-            <parameter name="orderId" required="true"/>
-            <parameter name="orderPartSeqId" required="true"/>
-        </out-parameters>
-        <actions>
-            <entity-find-one entity-name="mantle.request.Request" value-field="request"/>
-            <if condition="!request.facilityId">
-                <return error="true" message="Request ${requestId} has no Facility set."/>
-            </if>
-
-            <entity-find entity-name="mantle.facility.FacilityContactMech" list="postalList" cache="true">
-                <date-filter/><econdition field-name="facilityId" from="request.facilityId"/>
-                <econdition field-name="contactMechPurposeId" operator="in" value="PostalShippingDest,PostalGeneral"/>
-                <order-by field-name="-contactMechPurposeId,-fromDate"/><!-- prefer PostalShippingDest over PostalGeneral, get most recent -->
-            </entity-find>
-            <set field="shippingPostalContactMechId" from="postalList?.first?.contactMechId"/>
-
-            <entity-find entity-name="mantle.facility.FacilityContactMech" list="phoneList" cache="true">
-                <date-filter/><econdition field-name="facilityId" from="request.facilityId"/>
-                <econdition field-name="contactMechPurposeId" operator="in" value="PhoneShippingDest,PhonePrimary"/>
-                <order-by field-name="-contactMechPurposeId,-fromDate"/><!-- prefer PhoneShippingDest over PhonePrimary, get most recent -->
-            </entity-find>
-            <set field="shippingTelecomContactMechId" from="phoneList?.first?.contactMechId"/>
-
-            <entity-find entity-name="mantle.request.RequestItem" list="allRequestItemList">
-                <econdition field-name="requestId"/></entity-find>
-
-            <!-- split request by supplierPartyId, create one PO for each -->
-            <set field="requestItemListBySupplier" from="[:]"/>
-            <iterate list="allRequestItemList" entry="requestItem">
-                <if condition="!requestItem.supplierPartyId">
-                    <return error="true" message="No Supplier set on item ${requestItem.requestItemSeqId} for Request ${requestId}"/></if>
-                <script>addToListInMap(requestItem.supplierPartyId, requestItem, requestItemListBySupplier)</script>
-            </iterate>
-
-            <iterate list="requestItemListBySupplier" entry="requestItemList" key="supplierPartyId">
-                <service-call name="mantle.order.OrderServices.create#Order" out-map="orderOut"
-                        in-map="[vendorPartyId:supplierPartyId, customerPartyId:customerPartyId,
-                            currencyUomId:(request.currencyUomId ?: 'USD'), facilityId:request.facilityId]"/>
-                <set field="earliestRequiredByDate" from="null"/>
-                <iterate list="requestItemList" entry="requestItem">
-                    <service-call name="mantle.order.OrderServices.add#OrderProductQuantity"
-                            in-map="[orderId:orderOut.orderId, orderPartSeqId:orderOut.orderPartSeqId,
-                                productId:requestItem.productId, quantity:requestItem.quantity,
-                                itemTypeEnumId:'ItemProduct', requiredByDate:requestItem.requiredByDate]" out-map="addOut"/>
-                    <service-call name="create#mantle.request.RequestItemOrder"
-                            in-map="[requestId:requestItem.requestId, requestItemSeqId:requestItem.requestItemSeqId,
-                                orderId:orderOut.orderId, orderItemSeqId:addOut.orderItemSeqId, quantity:requestItem.quantity]"/>
-                    <if condition="!earliestRequiredByDate || (requestItem.requiredByDate &amp;&amp; requestItem.requiredByDate &lt; earliestRequiredByDate)">
-                        <set field="earliestRequiredByDate" from="requestItem.requiredByDate"/></if>
-                </iterate>
-                <if condition="earliestRequiredByDate">
-                    <service-call name="update#mantle.order.OrderPart" in-map="[orderId:orderOut.orderId,
-                            orderPartSeqId:orderOut.orderPartSeqId, shipBeforeDate:earliestRequiredByDate]"/>
-                </if>
-                <service-call name="mantle.order.OrderServices.set#OrderBillingShippingInfo"
-                        in-map="[orderId:orderOut.orderId, orderPartSeqId:orderOut.orderPartSeqId,
-                            paymentInstrumentEnumId:paymentInstrumentEnumId, paymentMethodId:paymentMethodId,
-                            shippingPostalContactMechId:shippingPostalContactMechId,
-                            shippingTelecomContactMechId:shippingTelecomContactMechId,
-                            shipmentMethodEnumId:shipmentMethodEnumId]"/>
-                <if condition="placeAndApproveOrders">
-                    <service-call name="mantle.order.OrderServices.place#Order"
-                            in-map="[orderId:orderOut.orderId, orderPartSeqId:orderOut.orderPartSeqId]"/>
-                    <service-call name="mantle.order.OrderServices.approve#Order"
-                            in-map="[orderId:orderOut.orderId, orderPartSeqId:orderOut.orderPartSeqId]"/>
-                </if>
-            </iterate>
-
-            <!-- Order created for Purchase Request, set Request status to In Progress -->
-            <service-call name="update#mantle.request.Request" in-map="[requestId:requestId, statusId:'ReqInProgress']"/>
-        </actions>
-    </service>
 </services>

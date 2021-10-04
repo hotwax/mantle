@@ -23,14 +23,10 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="orderHeader" type="Map"/>
             <parameter name="returnHeader" type="Map"/>
             <parameter name="party" type="Map"/>
-            <parameter name="partyBadge" type="Map"/>
             <parameter name="payment" type="Map"/>
             <parameter name="product" type="Map"/>
             <parameter name="productList" type="List"><parameter name="product" type="Map"/></parameter>
             <parameter name="shipment" type="Map"/>
-            <parameter name="workEffort" type="Map"/>
-            <parameter name="acctgTrans" type="Map"/>
-
             <parameter name="assetId"/>
             <parameter name="containerId"/>
             <parameter name="facilityId"/>
@@ -38,12 +34,9 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="orderId"/>
             <parameter name="returnId"/>
             <parameter name="partyId"/>
-            <parameter name="partyBadgeId"/>
             <parameter name="paymentId"/>
             <parameter name="productId"/>
             <parameter name="shipmentId"/>
-            <parameter name="workEffortId"/>
-            <parameter name="acctgTransId"/>
         </out-parameters>
         <actions>
             <if condition="!lookupId"><return/></if>
@@ -130,25 +123,6 @@ along with this software (see the LICENSE.md file). If not, see
                 </if>
             </if>
             <if condition="party != null"><set field="partyId" from="party.partyId"/></if>
-
-            <!-- PartyBadge -->
-            <entity-find-one entity-name="mantle.party.PartyBadge" value-field="partyBadge">
-                <field-map field-name="partyBadgeId" from="lookupId"/></entity-find-one>
-            <if condition="partyBadge == null">
-                <entity-find-one entity-name="mantle.party.PartyBadge" value-field="partyBadge">
-                    <field-map field-name="serialNumber" from="lookupId"/></entity-find-one>
-            </if>
-            <if condition="partyBadge == null">
-                <entity-find-one entity-name="mantle.party.PartyBadge" value-field="partyBadge">
-                    <field-map field-name="storedValue" from="lookupId"/></entity-find-one>
-            </if>
-            <if condition="partyBadge != null"><set field="partyBadgeId" from="partyBadge.partyBadgeId"/></if>
-            <if condition="party == null &amp;&amp; partyBadge?.partyId">
-                <entity-find-one entity-name="mantle.party.PartyDetail" value-field="party">
-                    <field-map field-name="partyId" from="partyBadge.partyId"/></entity-find-one>
-                <set field="partyId" from="party?.partyId"/>
-            </if>
-
             <!-- Payment -->
             <entity-find-one entity-name="mantle.account.payment.Payment" value-field="payment">
                 <field-map field-name="paymentId" from="lookupId"/></entity-find-one>
@@ -199,16 +173,6 @@ along with this software (see the LICENSE.md file). If not, see
                     <field-map field-name="originId" from="lookupId"/></entity-find-one>
             </if>
             <if condition="shipment != null"><set field="shipmentId" from="shipment.shipmentId"/></if>
-
-            <!-- WorkEffort -->
-            <entity-find-one entity-name="mantle.work.effort.WorkEffort" value-field="workEffort">
-                <field-map field-name="workEffortId" from="lookupId"/></entity-find-one>
-            <if condition="workEffort != null"><set field="workEffortId" from="workEffort.workEffortId"/></if>
-
-            <!-- AcctgTrans -->
-            <entity-find-one entity-name="mantle.ledger.transaction.AcctgTrans" value-field="acctgTrans">
-                <field-map field-name="acctgTransId" from="lookupId"/></entity-find-one>
-            <if condition="acctgTrans != null"><set field="acctgTransId" from="acctgTrans.acctgTransId"/></if>
         </actions>
     </service>
 

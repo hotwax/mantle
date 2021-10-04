@@ -93,6 +93,8 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="productId" related="toProductId"/></relationship>
         <relationship type="many" related="mantle.product.ProductContent" short-alias="contents">
             <key-map field-name="productId"/></relationship>
+        <relationship type="many" related="mantle.product.ProductDimension" short-alias="dimensions">
+            <key-map field-name="productId"/></relationship>
         <relationship type="many" related="mantle.product.ProductGeo" short-alias="geos">
             <key-map field-name="productId"/></relationship>
         <relationship type="many" related="mantle.product.ProductIdentification" short-alias="identifications">
@@ -349,6 +351,43 @@ along with this software (see the LICENSE.md file). If not, see
             <moqui.basic.Enumeration description="Sales Required Info" enumId="PfmtSalesRequired" enumTypeId="ProductFormType"/>
             <moqui.basic.Enumeration description="Sales Optional Info" enumId="PfmtSalesOptional" enumTypeId="ProductFormType"/>
             <moqui.basic.Enumeration description="Post Sale Survey" enumId="PfmtPostSaleSurvey" enumTypeId="ProductFormType"/>
+        </seed-data>
+    </entity>
+    <entity entity-name="ProductDimension" package="mantle.product">
+        <description>WARNING: to be deprecated by mantle.product.ProductUomDimension</description>
+        <field name="productId" type="id" is-pk="true"/>
+        <field name="dimensionTypeId" type="id" is-pk="true"/>
+        <field name="value" type="number-decimal"/>
+        <field name="valueUomId" type="id"/>
+        <relationship type="one" related="mantle.product.Product" short-alias="product"/>
+        <relationship type="one" related="mantle.product.ProductDimensionType" short-alias="type"/>
+        <relationship type="one" title="Value" related="moqui.basic.Uom" short-alias="valueUom">
+            <key-map field-name="valueUomId"/></relationship>
+    </entity>
+    <!-- TODO: deprecate by moqui.basic.UomDimensionType, will require data migration -->
+    <entity entity-name="ProductDimensionType" package="mantle.product">
+        <description>WARNING: to be deprecated by moqui.basic.UomDimensionType</description>
+        <field name="dimensionTypeId" type="id" is-pk="true"/>
+        <field name="description" type="text-medium"/>
+        <field name="uomTypeEnumId" type="id"/>
+        <field name="defaultUomId" type="id"/>
+        <relationship type="one" title="UomType" related="moqui.basic.Enumeration" short-alias="uomType">
+            <key-map field-name="uomTypeEnumId"/></relationship>
+        <relationship type="one" title="Default" related="moqui.basic.Uom" short-alias="defaultUom">
+            <key-map field-name="defaultUomId"/></relationship>
+        <seed-data>
+            <mantle.product.ProductDimensionType description="Quantity Included" dimensionTypeId="QuantityIncluded" defaultUomId="OTH_ct"/>
+            <mantle.product.ProductDimensionType description="Pieces Included" dimensionTypeId="PiecesIncluded" defaultUomId="OTH_ea"/>
+            <mantle.product.ProductDimensionType description="Weight" dimensionTypeId="Weight" uomTypeEnumId="UT_WEIGHT_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Height" dimensionTypeId="Height" uomTypeEnumId="UT_LENGTH_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Width" dimensionTypeId="Width" uomTypeEnumId="UT_LENGTH_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Depth" dimensionTypeId="Depth" uomTypeEnumId="UT_LENGTH_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Volume" dimensionTypeId="Volume" uomTypeEnumId="UT_VOLUME_DRY_MEAS"/>
+            <mantle.product.ProductDimensionType description="Shipping Weight" dimensionTypeId="ShippingWeight" uomTypeEnumId="UT_WEIGHT_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Shipping Height" dimensionTypeId="ShippingHeight" uomTypeEnumId="UT_LENGTH_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Shipping Width" dimensionTypeId="ShippingWidth" uomTypeEnumId="UT_LENGTH_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Shipping Depth" dimensionTypeId="ShippingDepth" uomTypeEnumId="UT_LENGTH_MEASURE"/>
+            <mantle.product.ProductDimensionType description="Diameter" dimensionTypeId="Diameter" uomTypeEnumId="UT_LENGTH_MEASURE"/>
         </seed-data>
     </entity>
     <entity entity-name="ProductUomDimension" package="mantle.product">

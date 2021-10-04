@@ -179,7 +179,7 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
-    <service verb="update" noun="FacilityCertification">
+    <!--<service verb="update" noun="FacilityCertification">
         <in-parameters>
             <parameter name="facilityCertificationId" required="true"/>
             <auto-parameters entity-name="mantle.facility.FacilityCertification" include="nonpk"/>
@@ -207,7 +207,7 @@ along with this software (see the LICENSE.md file). If not, see
 
             <service-call name="update#mantle.facility.FacilityCertification" in-map="context"/>
         </actions>
-    </service>
+    </service>-->
 
     <service verb="create" noun="FacilityLocation">
         <in-parameters>

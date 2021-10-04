@@ -29,8 +29,6 @@ along with this software (see the LICENSE.md file). If not, see
         <actions><service-call name="mantle.order.OrderServices.increment#OrderRevision" in-map="context"/></actions></eeca>
     <eeca id="OrderPartContactMechRevision" entity="mantle.order.OrderPartContactMech" on-create="true" on-update="true" on-delete="true" run-on-error="false">
         <actions><service-call name="mantle.order.OrderServices.increment#OrderRevision" in-map="context"/></actions></eeca>
-    <eeca id="OrderPartTermRevision" entity="mantle.order.OrderPartTerm" on-create="true" on-update="true" on-delete="true" run-on-error="false">
-        <actions><service-call name="mantle.order.OrderServices.increment#OrderRevision" in-map="context"/></actions></eeca>
     <eeca id="OrderNoteRevision" entity="mantle.order.OrderNote" on-create="true" on-update="true" on-delete="true" run-on-error="false">
         <actions><service-call name="mantle.order.OrderServices.increment#OrderRevision" in-map="context"/></actions></eeca>
 </eecas>

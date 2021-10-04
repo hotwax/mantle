@@ -48,10 +48,4 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="toPaymentId"><service-call name="mantle.account.PaymentServices.update#PaymentTotals" in-map="[paymentId:toPaymentId]"/></if>
         </actions>
     </eeca>
-
-    <!-- maintain isDebit and isTemporary flags on GlAccount -->
-    <eeca id="GlAccountSetFlags" entity="mantle.ledger.account.GlAccount"
-            on-create="true" on-update="true" run-on-error="false" run-before="true" get-entire-entity="true">
-        <actions><service-call name="mantle.ledger.LedgerServices.set#GlAccountFlags" in-map="[entityValue:entityValue]"/></actions>
-    </eeca>
 </eecas>

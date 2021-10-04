@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
-    <service verb="get" noun="FacilityDefaultShipDest">
+    <service verb="get" noun="FacilityDefaultShipDest" semaphore-timeout="">
         <in-parameters>
             <parameter name="facilityId"/>
             <parameter name="postalContactMechId"/>
@@ -275,7 +275,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="newContactMech.gatewayCimId" from="null"/>
             <set field="newContactMech.trustLevelEnumId" value="CmtlNew"/>
             <set field="newContactMech.validateMessage" from="null"/>
-            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>
+<!--            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>-->
             <entity-sequenced-id-primary value-field="newContactMech"/>
             <entity-create value-field="newContactMech"/>
 
@@ -351,7 +351,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="newContactMech.gatewayCimId" from="null"/>
             <set field="newContactMech.trustLevelEnumId" value="CmtlNew"/>
             <set field="newContactMech.validateMessage" from="null"/>
-            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>
+<!--            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>-->
             <entity-sequenced-id-primary value-field="newContactMech"/>
             <entity-create value-field="newContactMech"/>
 
@@ -430,7 +430,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="newContactMech.gatewayCimId" from="null"/>
             <set field="newContactMech.trustLevelEnumId" value="CmtlNew"/>
             <set field="newContactMech.validateMessage" from="null"/>
-            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>
+<!--            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>-->
             <entity-sequenced-id-primary value-field="newContactMech"/>
             <entity-create value-field="newContactMech"/>
 

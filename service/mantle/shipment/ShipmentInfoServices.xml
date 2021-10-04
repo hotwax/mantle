@@ -135,11 +135,6 @@ along with this software (see the LICENSE.md file). If not, see
             <entity-find entity-name="mantle.shipment.ShipmentContent" list="contentList">
                 <econdition field-name="shipmentId"/><order-by field-name="-contentDate"/></entity-find>
 
-            <!-- get associated accounting transactions -->
-            <entity-find entity-name="mantle.ledger.transaction.AcctgTrans" list="acctgTransList">
-                <econdition field-name="shipmentId"/></entity-find>
-            <set field="acctgTransIdSet" from="new TreeSet(acctgTransList*.acctgTransId)"/>
-
             <if condition="isIncoming || isTransfer">
                 <set field="allReceived" from="true"/>
                 <iterate list="shipmentItemDetailList" entry="sid">
@@ -239,14 +234,6 @@ along with this software (see the LICENSE.md file). If not, see
                         <field-map field-name="shipmentMethodEnumId" from="firstOrderPart.shipmentMethodEnumId"/>
                     </entity-find-one>
                 </if>
-            </if>
-
-            <!-- get Assembly WorkEffort Info -->
-            <if condition="shipment.assemblyWorkEffortId">
-                <entity-find-one entity-name="mantle.work.effort.WorkEffort" value-field="assemblyWorkEffort">
-                    <field-map field-name="workEffortId" from="shipment.assemblyWorkEffortId"/></entity-find-one>
-                <service-call name="mantle.work.ManufacturingServices.get#ConsumedAssetRemaining"
-                        in-map="[workEffortId:shipment.assemblyWorkEffortId]" out-map="assemblyAssetInfo"/>
             </if>
         </actions>
     </service>
@@ -564,7 +551,6 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="productOrderBy" default-value="pseudoId,productName"/>
         </in-parameters>
         <out-parameters>
-            <parameter name="workEffort" type="Map"/>
             <parameter name="dockFacility" type="Map"/>
             <parameter name="warehouseFacility" type="Map"><description>The warehouse the shipments come
                 from. Based on WorkEffort.facilityId unless it is a dock type facility and has a warehouse parent
@@ -601,8 +587,6 @@ along with this software (see the LICENSE.md file). If not, see
             -->
         </out-parameters>
         <actions>
-            <entity-find-one entity-name="mantle.work.effort.WorkEffort" value-field="workEffort"/>
-
             <entity-find-one entity-name="mantle.facility.Facility" value-field="dockFacility">
                 <field-map field-name="facilityId" from="workEffort.facilityId"/></entity-find-one>
             <!-- for any of these alternatives originFacilityId may still be null -->
@@ -613,9 +597,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="warehouseFacility" from="dockFacility"/>
                 <set field="dockFacility" from="null"/>
             </else-if></if>
-
-            <entity-find entity-name="mantle.work.effort.WorkEffortAssetAndAssign" list="assignedAssetList">
-                <date-filter/><econdition field-name="workEffortId"/><order-by field-name="assetName"/></entity-find>
 
             <entity-find entity-name="mantle.shipment.Shipment" list="shipmentList">
                 <econdition field-name="shipWorkEffortId" from="workEffortId"/>

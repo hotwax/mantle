@@ -210,13 +210,6 @@ along with this software (see the LICENSE.md file). If not, see
         <alias-all entity-alias="ORGT" prefix="to"><exclude field="partyId"/></alias-all>
     </view-entity>
 
-    <view-entity entity-name="PartyBadgeAndScan" package="mantle.party">
-        <member-entity entity-alias="PBA" entity-name="mantle.party.PartyBadge"/>
-        <member-entity entity-alias="PBSC" entity-name="mantle.party.PartyBadgeScan" join-from-alias="PBA">
-            <key-map field-name="partyBadgeId"/></member-entity>
-        <alias-all entity-alias="PBA"/>
-        <alias-all entity-alias="PBSC"/>
-    </view-entity>
     <view-entity entity-name="PartyClassificationAndAppl" package="mantle.party">
         <member-entity entity-alias="PCA" entity-name="mantle.party.PartyClassificationAppl"/>
         <member-entity entity-alias="PCLS" entity-name="mantle.party.PartyClassification" join-from-alias="PCA">
@@ -247,18 +240,6 @@ along with this software (see the LICENSE.md file). If not, see
     </view-entity>
 
     <!-- ========================================================= -->
-    <!-- mantle.party.agreement -->
-    <!-- ========================================================= -->
-
-    <view-entity entity-name="AgreementAndTerm" package="mantle.party.agreement">
-        <member-entity entity-alias="AGMT" entity-name="mantle.party.agreement.Agreement"/>
-        <member-entity entity-alias="AGTRM" entity-name="mantle.party.agreement.AgreementTerm" join-from-alias="AGMT">
-            <key-map field-name="agreementId"/></member-entity>
-        <alias-all entity-alias="AGMT"/>
-        <alias-all entity-alias="AGTRM"/>
-    </view-entity>
-
-    <!-- ========================================================= -->
     <!-- mantle.party.communication -->
     <!-- ========================================================= -->
 
@@ -269,13 +250,6 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="communicationEventId"/></member-entity>
         <alias-all entity-alias="CEV"/>
         <alias-all entity-alias="CEVP"/>
-    </view-entity>
-    <view-entity entity-name="WikiPageCommEventDetail" package="mantle.party.communication">
-        <member-entity entity-alias="WPCE" entity-name="mantle.party.communication.WikiPageCommunicationEvent"/>
-        <member-entity entity-alias="CEV" entity-name="mantle.party.communication.CommunicationEvent" join-from-alias="WPCE">
-            <key-map field-name="communicationEventId"/></member-entity>
-        <alias-all entity-alias="WPCE"/>
-        <alias-all entity-alias="CEV"/>
     </view-entity>
 
     <!-- ========================================================= -->
@@ -349,17 +323,5 @@ along with this software (see the LICENSE.md file). If not, see
         <alias-all entity-alias="PCA"><exclude field="fromDate"/><exclude field="thruDate"/></alias-all>
         <alias name="pcaFromDate" entity-alias="PCA" field="fromDate"/>
         <alias name="pcaThruDate" entity-alias="PCA" field="thruDate"/>
-    </view-entity>
-
-    <!-- ========================================================= -->
-    <!-- mantle.party.time -->
-    <!-- ========================================================= -->
-
-    <view-entity entity-name="TimePeriodAndType" package="mantle.party.time">
-        <member-entity entity-alias="TMPD" entity-name="mantle.party.time.TimePeriod"/>
-        <member-entity entity-alias="TPT" entity-name="mantle.party.time.TimePeriodType" join-from-alias="TMPD">
-            <key-map field-name="timePeriodTypeId"/></member-entity>
-        <alias-all entity-alias="TMPD"/>
-        <alias-all entity-alias="TPT"/>
     </view-entity>
 </entities>

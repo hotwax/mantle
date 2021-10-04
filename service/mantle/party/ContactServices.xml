@@ -835,7 +835,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="newContactMech.gatewayCimId" from="null"/>
             <set field="newContactMech.trustLevelEnumId" value="CmtlNew"/>
             <set field="newContactMech.validateMessage" from="null"/>
-            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>
+<!--            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>-->
             <entity-sequenced-id-primary value-field="newContactMech"/>
             <entity-create value-field="newContactMech"/>
             <set field="contactMechId" from="newContactMech.contactMechId"/>
@@ -1124,7 +1124,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="newContactMech.gatewayCimId" from="null"/>
             <set field="newContactMech.trustLevelEnumId" from="trustLevelEnumId"/>
             <set field="newContactMech.validateMessage" from="null"/>
-            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>
+<!--            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>-->
             <entity-sequenced-id-primary value-field="newContactMech"/>
             <entity-create value-field="newContactMech"/>
 
@@ -1362,7 +1362,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="newContactMech.gatewayCimId" from="null"/>
             <set field="newContactMech.trustLevelEnumId" value="CmtlNew"/>
             <set field="newContactMech.validateMessage" from="null"/>
-            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>
+<!--            <set field="newContactMech.paymentFraudEvidenceId" from="null"/>-->
             <entity-sequenced-id-primary value-field="newContactMech"/>
             <entity-create value-field="newContactMech"/>
 
@@ -1393,7 +1393,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="dataSourceId"/>
             <parameter name="trustLevelEnumId"/>
             <parameter name="validateMessage"/>
-            <parameter name="paymentFraudEvidenceId"/>
+<!--            <parameter name="paymentFraudEvidenceId"/>-->
         </in-parameters>
         <actions>
             <service-call name="update#mantle.party.contact.ContactMech" in-map="context"/>
