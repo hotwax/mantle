@@ -270,7 +270,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <detail relationship="contactMechs">
                     <detail relationship="contactMech" use-master="default"/>
                 </detail>
-                <detail relationship="terms"><detail relationship="term"/></detail>
                 <detail relationship="vendor" use-master="basic"/>
                 <detail relationship="customer" use-master="basic"/>
                 <detail relationship="carrier" use-master="basic"/>

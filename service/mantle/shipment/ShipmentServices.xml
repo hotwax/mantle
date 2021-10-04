@@ -18,9 +18,9 @@ along with this software (see the LICENSE.md file). If not, see
     <!-- ========== Shipment View/Display Services ========== -->
     <!-- ==================================================== -->
 
-    <service-include verb="get" noun="ShipmentDisplayInfo" location="component://mantle-usl/service/mantle/shipment/ShipmentInfoServices.xml"/>
-    <service-include verb="get" noun="ShipmentContactInfo" location="component://mantle-usl/service/mantle/shipment/ShipmentInfoServices.xml"/>
-    <service-include verb="get" noun="ShipmentShippingOptions" location="component://mantle-usl/service/mantle/shipment/ShipmentInfoServices.xml"/>
+    <service-include verb="get" noun="ShipmentDisplayInfo" location="component://mantle/service/mantle/shipment/ShipmentInfoServices.xml"/>
+    <service-include verb="get" noun="ShipmentContactInfo" location="component://mantle/service/mantle/shipment/ShipmentInfoServices.xml"/>
+    <service-include verb="get" noun="ShipmentShippingOptions" location="component://mantle/service/mantle/shipment/ShipmentInfoServices.xml"/>
 
     <!-- ========================================================= -->
     <!-- ========== Shipment Create and Modify Services ========== -->
@@ -750,8 +750,8 @@ along with this software (see the LICENSE.md file). If not, see
     <!-- ========== Pick, Pack, and Ship Services ========== -->
     <!-- =================================================== -->
 
-    <service-include verb="get" noun="ShipmentLoadPickInfo" location="component://mantle-usl/service/mantle/shipment/ShipmentInfoServices.xml"/>
-    <service-include verb="get" noun="ShipmentPickPackInfo" location="component://mantle-usl/service/mantle/shipment/ShipmentInfoServices.xml"/>
+    <service-include verb="get" noun="ShipmentLoadPickInfo" location="component://mantle/service/mantle/shipment/ShipmentInfoServices.xml"/>
+    <service-include verb="get" noun="ShipmentPickPackInfo" location="component://mantle/service/mantle/shipment/ShipmentInfoServices.xml"/>
 
     <service verb="pickMove" noun="ProductToContainer">
         <in-parameters>

@@ -312,7 +312,7 @@ along with this software (see the LICENSE.md file). If not, see
             <detail relationship="container"/><detail relationship="boxType"/>
             <detail relationship="lot"/><detail relationship="geoPoint"/>
 
-            <detail relationship="acquireOrderItem"/><detail relationship="acquireWorkEffort"/>
+            <detail relationship="acquireOrderItem"/>
             <detail relationship="acquireShipment"/><detail relationship="acquireCostUom"/>
             <detail relationship="depreciationType"/><detail relationship="taxDepreciationType"/>
 

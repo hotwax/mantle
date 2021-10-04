@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
     <service verb="find" noun="Party" type="script"
-             location="component://mantle-usl/service/mantle/party/PartyServices/findParty.groovy">
+             location="component://mantle/service/mantle/party/PartyServices/findParty.groovy">
         <in-parameters>
             <parameter name="partyId"/>
             <parameter name="pseudoId"/>

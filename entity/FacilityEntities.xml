@@ -107,8 +107,6 @@ along with this software (see the LICENSE.md file). If not, see
             <detail relationship="type"/><detail relationship="parent"/><detail relationship="status"/>
             <detail relationship="owner" use-master="basic"/>
             <detail relationship="sizeUom"/><detail relationship="geo"/><detail relationship="geoPoint"/>
-
-            <detail relationship="certifications"/>
             <detail relationship="contactMechs">
                 <detail relationship="contactMech" use-master="default"/>
                 <detail relationship="purpose"/>

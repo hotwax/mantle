@@ -98,7 +98,6 @@ along with this software (see the LICENSE.md file). If not, see
             <detail relationship="organization"/>
             <detail relationship="person"/>
             <!-- TODO: do something with UserAccount, exclude certain fields like PW/etc? -->
-            <detail relationship="badges"/>
             <detail relationship="classifications">
                 <detail relationship="classification"><detail relationship="type"/></detail>
             </detail>

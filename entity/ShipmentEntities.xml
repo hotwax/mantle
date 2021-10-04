@@ -163,8 +163,6 @@ along with this software (see the LICENSE.md file). If not, see
             <detail relationship="status"/>
             <detail relationship="fromParty" use-master="basic"/>
             <detail relationship="toParty" use-master="basic"/>
-            <detail relationship="shipWorkEffort"/>
-            <detail relationship="receiveWorkEffort"/>
             <detail relationship="costUom"/>
             <detail relationship="contents"/>
             <detail relationship="items">
