@@ -89,8 +89,8 @@ along with this software (see the LICENSE.md file). If not, see
             <moqui.basic.Enumeration description="Organization" enumId="PtyOrganization" enumTypeId="PartyType"/>
 
             <!-- _NA_ Party -->
-            <Party partyId="_NA_" partyTypeEnumId="PtyPerson"/>
-            <Person partyId="_NA_" firstName="Not" lastName="Applicable"/>
+            <mantle.party.Party partyId="_NA_" partyTypeEnumId="PtyPerson"/>
+            <mantle.party.Person partyId="_NA_" firstName="Not" lastName="Applicable"/>
         </seed-data>
 
         <master name="default">
@@ -223,7 +223,7 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" title="PartyClassificationType" related="moqui.basic.Enumeration" short-alias="type">
             <key-map field-name="classificationTypeEnumId"/></relationship>
         <relationship type="one" title="Parent" related="mantle.party.PartyClassification">
-            <key-map field-name="parentClassificationId" related="partyClassificationId"/></relationship>
+            <key-map field-name="parentClassificationId" related="partyClassificationId"/></relationship>   
         <seed-data>
             <moqui.basic.EnumerationType description="Party Classification Type" enumTypeId="PartyClassificationType"/>
             <moqui.basic.Enumeration description="Customer" enumId="PcltCustomer" enumTypeId="PartyClassificationType"/>
@@ -1030,15 +1030,15 @@ along with this software (see the LICENSE.md file). If not, see
             <moqui.basic.Enumeration enumId="CmtWebForm" description="Web Form" parentEnumId="CmtElectronicAddress" enumTypeId="ContactMechType"/>
 
             <!-- NOTE: this is not an Enumeration because we need to track the contactMechTypeEnumId as applicable -->
-            <CommunicationEventType communicationEventTypeId="Email" description="Email" contactMechTypeEnumId="CmtEmailAddress"/>
-            <CommunicationEventType communicationEventTypeId="FaceToFace" description="Face-To-Face"/>
-            <CommunicationEventType communicationEventTypeId="Fax" description="Fax" contactMechTypeEnumId="CmtTelecomNumber"/>
-            <CommunicationEventType communicationEventTypeId="Letter" description="Letter" contactMechTypeEnumId="CmtPostalAddress"/>
-            <CommunicationEventType communicationEventTypeId="Phone" description="Phone" contactMechTypeEnumId="CmtTelecomNumber"/>
-            <CommunicationEventType communicationEventTypeId="WebSite" description="Web Site" contactMechTypeEnumId="CmtWebAddress"/>
-            <CommunicationEventType communicationEventTypeId="Comment" description="Comment"/>
-            <CommunicationEventType communicationEventTypeId="Message" description="Message"/>
-            <CommunicationEventType communicationEventTypeId="AutoEmail" description="Auto Email" contactMechTypeEnumId="CmtEmailAddress"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="Email" description="Email" contactMechTypeEnumId="CmtEmailAddress"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="FaceToFace" description="Face-To-Face"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="Fax" description="Fax" contactMechTypeEnumId="CmtTelecomNumber"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="Letter" description="Letter" contactMechTypeEnumId="CmtPostalAddress"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="Phone" description="Phone" contactMechTypeEnumId="CmtTelecomNumber"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="WebSite" description="Web Site" contactMechTypeEnumId="CmtWebAddress"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="Comment" description="Comment"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="Message" description="Message"/>
+            <mantle.party.communication.CommunicationEventType communicationEventTypeId="AutoEmail" description="Auto Email" contactMechTypeEnumId="CmtEmailAddress"/>
         </seed-data>
     </entity>
 
@@ -1105,106 +1105,106 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" title="ContactMechType" related="moqui.basic.Enumeration">
             <key-map field-name="contactMechTypeEnumId"/></relationship>
         <seed-data>
-            <ContactMechPurpose contactMechPurposeId="PostalPrimary" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalPrimary" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Primary"/>
-            <ContactMechPurpose contactMechPurposeId="PostalShippingDest" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalShippingDest" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Shipping Destination"/>
-            <ContactMechPurpose contactMechPurposeId="PostalShippingOrigin" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalShippingOrigin" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Shipping Origin"/>
-            <ContactMechPurpose contactMechPurposeId="PostalBilling" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalBilling" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Billing (AP)"/>
-            <ContactMechPurpose contactMechPurposeId="PostalPayment" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalPayment" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Payment (AR)"/>
-            <ContactMechPurpose contactMechPurposeId="PostalTax" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalTax" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Tax"/>
-            <ContactMechPurpose contactMechPurposeId="PostalGeneral" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalGeneral" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - General Correspondence"/>
-            <ContactMechPurpose contactMechPurposeId="PostalPurchReturn" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalPurchReturn" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Purchase Return"/>
-            <ContactMechPurpose contactMechPurposeId="PostalPrevious" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalPrevious" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Previous"/>
-            <ContactMechPurpose contactMechPurposeId="PostalHome" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalHome" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Home"/>
-            <ContactMechPurpose contactMechPurposeId="PostalWork" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalWork" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Work"/>
-            <ContactMechPurpose contactMechPurposeId="PostalRetailStore" contactMechTypeEnumId="CmtPostalAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PostalRetailStore" contactMechTypeEnumId="CmtPostalAddress"
                     description="Postal - Retail Store"/>
 
-            <ContactMechPurpose contactMechPurposeId="PhonePrimary" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhonePrimary" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Primary"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneShippingDest" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneShippingDest" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Shipping Destination"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneShippingOrigin" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneShippingOrigin" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Shipping Origin"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneShippingFax" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneShippingFax" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Shipping Fax"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneBilling" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneBilling" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Billing (AP)"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneBillingFax" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneBillingFax" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Billing Fax (AP)"/>
-            <ContactMechPurpose contactMechPurposeId="PhonePayment" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhonePayment" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Payment (AR)"/>
-            <ContactMechPurpose contactMechPurposeId="PhonePaymentFax" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhonePaymentFax" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Payment Fax (AR)"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneTax" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneTax" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Tax"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneDid" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneDid" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Direct Inward Dialing"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneHome" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneHome" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Home"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneWork" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneWork" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Work"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneFax" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneFax" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Fax"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneMobile" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneMobile" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Mobile"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneAssistant" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneAssistant" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Assistant"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneQuick" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneQuick" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Quick Calls"/>
-            <ContactMechPurpose contactMechPurposeId="PhoneRetailStore" contactMechTypeEnumId="CmtTelecomNumber"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="PhoneRetailStore" contactMechTypeEnumId="CmtTelecomNumber"
                     description="Phone - Retail Store"/>
 
-            <ContactMechPurpose contactMechPurposeId="EmailPrimary" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailPrimary" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Primary Address"/>
-            <ContactMechPurpose contactMechPurposeId="EmailShippingDest" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailShippingDest" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Shipping Destination"/>
-            <ContactMechPurpose contactMechPurposeId="EmailShippingOrigin" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailShippingOrigin" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Shipping Origin"/>
-            <ContactMechPurpose contactMechPurposeId="EmailBilling" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailBilling" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Billing (AP)"/>
-            <ContactMechPurpose contactMechPurposeId="EmailPayment" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailPayment" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Payment (AR)"/>
-            <ContactMechPurpose contactMechPurposeId="EmailOther" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailOther" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Other"/>
-            <ContactMechPurpose contactMechPurposeId="EmailSupport" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailSupport" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Support"/>
-            <ContactMechPurpose contactMechPurposeId="EmailOrder" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailOrder" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Order Notification"/>
-            <ContactMechPurpose contactMechPurposeId="EmailMarketing" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailMarketing" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Marketing"/>
-            <ContactMechPurpose contactMechPurposeId="EmailRetailStore" contactMechTypeEnumId="CmtEmailAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="EmailRetailStore" contactMechTypeEnumId="CmtEmailAddress"
                     description="Email - Retail Store"/>
 
-            <ContactMechPurpose contactMechPurposeId="WebUrlPrimary" contactMechTypeEnumId="CmtWebAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="WebUrlPrimary" contactMechTypeEnumId="CmtWebAddress"
                     description="Website URL - Primary"/>
-            <ContactMechPurpose contactMechPurposeId="WebUrlPayment" contactMechTypeEnumId="CmtWebAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="WebUrlPayment" contactMechTypeEnumId="CmtWebAddress"
                     description="Website URL - Payment (AR)"/>
-            <ContactMechPurpose contactMechPurposeId="WebUrlFacebook" contactMechTypeEnumId="CmtWebAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="WebUrlFacebook" contactMechTypeEnumId="CmtWebAddress"
                     description="Website URL - Facebook"/>
-            <ContactMechPurpose contactMechPurposeId="WebUrlICal" contactMechTypeEnumId="CmtWebAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="WebUrlICal" contactMechTypeEnumId="CmtWebAddress"
                     description="Website URL - iCal"/>
-            <ContactMechPurpose contactMechPurposeId="WebUrlLinkedIn" contactMechTypeEnumId="CmtWebAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="WebUrlLinkedIn" contactMechTypeEnumId="CmtWebAddress"
                     description="Website URL - LinkedIn"/>
-            <ContactMechPurpose contactMechPurposeId="WebUrlTwitter" contactMechTypeEnumId="CmtWebAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="WebUrlTwitter" contactMechTypeEnumId="CmtWebAddress"
                     description="Website URL - Twitter"/>
-            <ContactMechPurpose contactMechPurposeId="WebRetailStore" contactMechTypeEnumId="CmtWebAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="WebRetailStore" contactMechTypeEnumId="CmtWebAddress"
                     description="Website URL - Retail Store"/>
 
             <!-- General 'Other' purpose, mainly needed because PartyContactMech.contactMechPurposeId is a PK field, needs a non-null value -->
-            <ContactMechPurpose contactMechPurposeId="Other" contactMechTypeEnumId="" description="Other"/>
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="Other" contactMechTypeEnumId="" description="Other"/>
 
-            <ContactMechPurpose contactMechPurposeId="IpAddressClient" contactMechTypeEnumId="CmtIpAddress"
+            <mantle.party.contact.ContactMechPurpose contactMechPurposeId="IpAddressClient" contactMechTypeEnumId="CmtIpAddress"
                     description="IP Address - Client"/>
         </seed-data>
     </entity>
