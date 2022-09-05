@@ -233,5 +233,5 @@ along with this software (see the LICENSE.md file). If not, see
         <documents dataDocumentId="MantleCommunicationEvent"/>
         <documents dataDocumentId="MantleProduct"/>
         <documents dataDocumentId="MantleFacility"/>
-    </moqui.entity.feed.DataFeed>
+    </moqui.entity.feed.DataFeed> 
 </entity-facade-xml>
